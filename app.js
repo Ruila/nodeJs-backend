@@ -3,10 +3,29 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mysql = require('mysql')
+
 const port = 8000;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+//database
+
+var connect = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'nodeJs_pratice',
+  port: '8889'
+})
+
+connect.connect(function(err){
+  if(err){
+    console.log('connect error');
+    return;
+  }
+})
 
 var app = express();
 
