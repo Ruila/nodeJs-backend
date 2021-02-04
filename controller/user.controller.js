@@ -12,6 +12,19 @@ const userGet = (req, res) => {
         });
 }
 
+/* Post User data */
+const userPost = (req, res) => {
+    const insertData = req.body;
+    userModule.createUser(insertData)
+        .then((result) => {
+            console.log('in controller');
+            res.send(result);
+        })
+        .catch((err) => {
+            return res.send(err)
+        })
+}
+
 // export default {
 //     userGet,
 // };
@@ -19,4 +32,5 @@ const userGet = (req, res) => {
 
 module.exports = {
     userGet,
+    userPost,
 };

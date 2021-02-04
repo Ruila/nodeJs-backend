@@ -1,4 +1,5 @@
-var mysql = require('mysql')
+var mysql = require('mysql');
+const { connect } = require('../config/express');
 
 const connectionPool = mysql.createPool({
   host: 'localhost',
@@ -21,6 +22,7 @@ const selectUsers = () => {
             console.error('SQL error', error);
             reject(error);
           } else {
+            // console.log('What to include in result', result)
             resolve(result);
           }
           connection.release();
@@ -30,6 +32,30 @@ const selectUsers = () => {
   });
 }
 
+/* Add new User */
+const createUser = (insertData) => {
+  return new Promise((resolve, reject) => {
+    connectionPool.getConnection((err, connection) => {
+      if(err) {
+        reject(err); 
+      } else {
+        connection.query(`INSERT INTO account SET ?`, insertData, (error, result) => {
+          if(error) {
+            console.error('SQL error', error)
+            reject(error)
+          } else {
+            console.log('What to include in result', result)
+            // resolve(`post successfully userid: ${result}`);
+            resolve(result)
+          }
+          connection.release();
+        })
+      }
+    })
+  })
+}
+
 module.exports = {
   selectUsers,
+  createUser,
 };

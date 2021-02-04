@@ -8,6 +8,8 @@ var userCtrl = require('../controller/user.controller.js');
 // });
 
 router.route('/')
-  .get(userCtrl.userGet);
+  .get(userCtrl.userGet)
+  .post(userCtrl.userPost);
 
 module.exports = router;
+
