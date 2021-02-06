@@ -11,7 +11,7 @@ const connectionPool = mysql.createPool({
 
 
 /*  Get User data */
-const selectUsers = () => {
+const getUsersList = () => {
   return new Promise((resolve, reject) => {
     connectionPool.getConnection((err, connection) => {
       if (err) {
@@ -55,7 +55,39 @@ const createUser = (insertData) => {
   })
 }
 
+/* check whether the User exist */
+const loginCheck = (insertData) => {
+  return new Promise((resolve, reject) => {
+    connectionPool.getConnection((err, connection) => {
+      if(err) {
+        reject(err); 
+      } else {
+        connection.query(`SELECT * FROM account WHERE email = ?`, insertData.email, (error, result) => {
+          if(error) {
+            console.error('SQL error', error)
+            reject(error)
+          } else if (Object.keys(result).length===0){
+            resolve('信箱尚未註冊！')
+          } else {
+            console.log('What to include in result', result)
+            // resolve(`post successfully userid: ${result}`);
+            // resolve(result)
+            console.log('result.password', result[0].password, insertData.password)
+            if(result[0].password === insertData.password){
+              resolve('succeed');
+            } else {
+              resolve('password error');
+            }
+          }
+          connection.release();
+        })
+      }
+    })
+  })
+}
+
 module.exports = {
-  selectUsers,
+  getUsersList,
   createUser,
+  loginCheck,
 };

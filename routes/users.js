@@ -11,5 +11,8 @@ router.route('/')
   .get(userCtrl.userGet)
   .post(userCtrl.userPost);
 
+router.route('/logincheck')
+  .post(userCtrl.userLogin);
+
 module.exports = router;
 

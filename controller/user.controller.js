@@ -3,7 +3,7 @@ var userModule = require('../modules/user.module.js');
 /* Get User data */
 const userGet = (req, res) => {
     // return res.send('respond with a resourcdddde');
-    userModule.selectUsers()
+    userModule.getUsersList()
         .then((result) => {
             res.send(result);
         })
@@ -17,12 +17,23 @@ const userPost = (req, res) => {
     const insertData = req.body;
     userModule.createUser(insertData)
         .then((result) => {
-            console.log('in controller');
             res.send(result);
         })
         .catch((err) => {
-            return res.send(err)
+            return res.send(err);
         })
+}
+
+/* User Login Check */
+const userLogin = (req, res) => {
+    const insertData = req.body;
+    userModule.loginCheck(insertData)
+    .then((result) => {
+        res.send(result);
+    })
+    .catch((err) => {
+        return res.send(err);
+    })
 }
 
 // export default {
@@ -33,4 +44,5 @@ const userPost = (req, res) => {
 module.exports = {
     userGet,
     userPost,
+    userLogin,
 };

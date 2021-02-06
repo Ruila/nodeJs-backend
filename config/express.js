@@ -3,6 +3,7 @@ var createError = require('http-errors');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var path = require('path');
+var cors = require('cors');
 var index = require('../routes/index.js');
 
 const app = express();
@@ -18,6 +19,8 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(cors());
 app.use(express.static(path.join(__dirname, '../public/')));
 
 
