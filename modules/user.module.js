@@ -46,7 +46,7 @@ const createUser = (insertData) => {
           } else {
             console.log('What to include in result', result)
             // resolve(`post successfully userid: ${result}`);
-            resolve(result)
+            resolve('succeed to create your account')
           }
           connection.release();
         })
