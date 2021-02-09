@@ -1,4 +1,5 @@
 var userModule = require('../modules/user.module.js');
+const session = require('express-session');
 
 /* Get User data */
 const userGet = (req, res) => {
@@ -27,6 +28,7 @@ const userPost = (req, res) => {
 /* User Login Check */
 const userLogin = (req, res) => {
     const insertData = req.body;
+    // res.setHeader('Set-Cookie', 'isLoggedIn=true');
     userModule.loginCheck(insertData)
     .then((result) => {
         res.send(result);
