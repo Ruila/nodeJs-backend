@@ -1,6 +1,7 @@
 var express = require('express');
 var createError = require('http-errors');
 var logger = require('morgan');
+var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var path = require('path');
 var cors = require('cors');
@@ -20,6 +21,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser('secret1111111'));
 app.use(session({
   secret: 'efdoejfow21hih123hoo1',
   resave: false,
@@ -31,9 +33,7 @@ app.use(express.static(path.join(__dirname, '../public/')));
 
 // get home page
 app.get('/', (req, res)=> {
-    console.log('in config/express');
-    // const cookie = req.get('Cookie')
-    // console.log('cookie', cookie)
+  res.cookie('try1111', 'try', {path: '/'});
     res.send(`server started on port http://localhost:${port} haha`);
     
 })

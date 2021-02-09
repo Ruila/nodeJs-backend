@@ -74,8 +74,10 @@ const loginCheck = (insertData) => {
             // resolve(result)
             console.log('result.password', result[0].password, insertData.password)
             if(result[0].password === insertData.password){
+              console.log('succeed\n')
               resolve('succeed');
             } else {
+              console.log('error\n')
               resolve('password error');
             }
           }
