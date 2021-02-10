@@ -33,6 +33,7 @@ const userLogin = (req, res) => {
     userModule.loginCheck(insertData)
     .then((result) => {
         res.cookie('cookie1', '5678', {path: '/'});
+        // res.session.username = 'ggggggg'
         // console.log('what is res', res.cookies.try)
         res.send(result);
     })

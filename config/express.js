@@ -22,11 +22,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser('secret1111111'));
-app.use(session({
-  secret: 'efdoejfow21hih123hoo1',
-  resave: false,
-  saveUninitialized: false
-}))
+// app.use(session({
+//   secret: '12ea21869a07c97d',
+//   name: 'sessionFromExpress',
+//   resave: true,
+//   saveUninitialized: true,
+  
+// }))
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,
