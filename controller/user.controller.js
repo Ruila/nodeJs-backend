@@ -1,5 +1,4 @@
 var userModule = require('../modules/user.module.js');
-var cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 /* Get User data */
@@ -33,8 +32,13 @@ const userLogin = (req, res) => {
     userModule.loginCheck(insertData)
     .then((result) => {
         res.cookie('cookie1', '5678', {path: '/'});
-        // res.session.username = 'ggggggg'
-        // console.log('what is res', res.cookies.try)
+        req.session.username = 'ggggggg'
+        console.log('what is res', req.session)
+        req.session.regenerate(()=>{
+           req.session.username = 'reset'
+           req.session.username1 = 'add111'
+        })
+        console.log('what is res2222', req.session)
         res.send(result);
     })
     .catch((err) => {

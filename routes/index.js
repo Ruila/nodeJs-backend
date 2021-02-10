@@ -6,8 +6,8 @@ var user = require('./users.js');
 
 /* GET home page.-> /api */
 router.get('/', function(req, res, next) {
+  console.log('in routes/index', req.session);
   res.render('index', {title: 'Express'});
-  console.log('in routes/index');
   // res.render('this is: localhost:port/api');
   next();
 });

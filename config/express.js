@@ -1,12 +1,12 @@
 var express = require('express');
 var createError = require('http-errors');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var path = require('path');
 var cors = require('cors');
 const session = require('express-session');
 var index = require('../routes/index.js');
+const { RequestHeaderFieldsTooLarge } = require('http-errors');
 
 const app = express();
 
@@ -21,14 +21,13 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser('secret1111111'));
-// app.use(session({
-//   secret: '12ea21869a07c97d',
-//   name: 'sessionFromExpress',
-//   resave: true,
-//   saveUninitialized: true,
+app.use(session({
+  secret: '12ea21869a07c97d',
+  name: 'sessionFromExpress',
+  resave: true,
+  saveUninitialized: true,
   
-// }))
+}))
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,
@@ -46,6 +45,8 @@ app.use('/api', index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log('errrrrror', req.sessionID)
+
   next(createError(404));
 });
 
