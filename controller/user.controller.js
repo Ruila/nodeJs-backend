@@ -39,7 +39,7 @@ const userLogin = (req, res) => {
     // res.setHeader('Set-Cookie', 'isLoggedIn=true');
     userModule.loginCheck(insertData)
     .then((result) => {
-        res.cookie('cookie1', '5678', {path: '/'});
+        res.cookie('cookie1', 'abc1234', {path: '/'});
         req.session.username = 'ggggggg'
         console.log('what is res', req.session)
         console.log('what is res2222', req.session)
