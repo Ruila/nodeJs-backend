@@ -27,13 +27,15 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(express.static(path.join(__dirname, '../public/')));
 
 
 // get home page
 app.get('/', (req, res)=> {
-  res.cookie('try1111', 'try', {path: '/'});
     res.send(`server started on port http://localhost:${port} haha`);
     
 })

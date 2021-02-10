@@ -30,11 +30,9 @@ const userPost = (req, res) => {
 const userLogin = (req, res) => {
     const insertData = req.body;
     // res.setHeader('Set-Cookie', 'isLoggedIn=true');
-    console.log('QQQQQ insert Data', insertData)
-    res.cookie('try', 'try', {path: '/'});
     userModule.loginCheck(insertData)
     .then((result) => {
-        res.cookie('try', 'try', {path: '/'});
+        res.cookie('cookie1', '5678', {path: '/'});
         // console.log('what is res', res.cookies.try)
         res.send(result);
     })
