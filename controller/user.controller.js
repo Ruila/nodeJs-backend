@@ -25,14 +25,6 @@ const userPost = (req, res) => {
         })
 }
 
-const userLoginExist = (req, res) => {
-    if(req.session.username === 'abc1234')
-        res.send('exist')
-    else{
-        console.log('not exist', req.session);
-    }
-}
-
 /* User Login Check */
 const userLogin = (req, res) => {
     const insertData = req.body;
@@ -59,5 +51,4 @@ module.exports = {
     userGet,
     userPost,
     userLogin,
-    userLoginExist,
 };

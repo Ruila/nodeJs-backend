@@ -11,8 +11,7 @@ router.route('/')
   .get(userCtrl.userGet)
   .post(userCtrl.userPost);
 
-router.route('/logincheck')
-  .get(userCtrl.userLoginExist)
+router.route('/login')
   .post(userCtrl.userLogin);
 
 module.exports = router;
