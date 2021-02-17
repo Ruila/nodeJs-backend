@@ -33,8 +33,6 @@ const userLogin = (req, res) => {
     .then((result) => {
         res.cookie('cookie1', 'abc1234', {path: '/'});
         req.session.username = 'ggggggg'
-        console.log('what is res', req.session)
-        console.log('what is res2222', req.session)
         res.send(result);
     })
     .catch((err) => {

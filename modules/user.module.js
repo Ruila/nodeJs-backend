@@ -1,3 +1,5 @@
+var crypto = require('crypto');
+var md5 = crypto.createHash('md5');
 var mysql = require('mysql');
 const {
   connect
@@ -83,11 +85,13 @@ const loginCheck = (insertData) => {
             console.log('What to include in result', result)
             // resolve(`post successfully userid: ${result}`);
             // resolve(result)
-            console.log('result.password', result[0].password, insertData.password)
+            console.log('result.password', result[0].password, insertData)
             if (result[0].password === insertData.password) {
               resolve({
                 text: 'succeed',
-                userid: result[0].userid
+                userid: result[0].userid,
+                email: result[0].email,
+                token: md5.update(`${result[0]}`).digest('hex')
               });
             } else {
               resolve('password error');
