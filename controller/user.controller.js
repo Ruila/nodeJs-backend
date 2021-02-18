@@ -1,10 +1,10 @@
 var userModule = require('../modules/user.module.js');
 const session = require('express-session');
 
-/* Get User data */
-const userGet = (req, res) => {
-    // return res.send('respond with a resourcdddde');
-    userModule.getUsersList()
+/* Get User profile data */
+const userProfile = (req, res) => {
+    const insertData = req.body;
+    userModule.getProfile(insertData)
         .then((result) => {
             res.send(result);
         })
@@ -31,7 +31,10 @@ const userLogin = (req, res) => {
     // res.setHeader('Set-Cookie', 'isLoggedIn=true');
     userModule.loginCheck(insertData)
     .then((result) => {
-        res.cookie('cookie1', 'abc1234', {path: '/'});
+        console.log('in controller result', result)
+        if(result.text === 'succeed') {
+            res.cookie('user', JSON.stringify(result), {path: '/'});
+        }
         req.session.username = 'ggggggg'
         res.send(result);
     })
@@ -46,7 +49,7 @@ const userLogin = (req, res) => {
 
 
 module.exports = {
-    userGet,
+    userProfile,
     userPost,
     userLogin,
 };

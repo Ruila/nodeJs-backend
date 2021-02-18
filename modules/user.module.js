@@ -19,23 +19,34 @@ const connectionPool = mysql.createPool({
 });
 
 
-/*  Get User data */
-const getUsersList = () => {
+/*  Get User Profile */
+const getProfile = (insertData) => {
   return new Promise((resolve, reject) => {
     connectionPool.getConnection((err, connection) => {
       if (err) {
         reject(err); //return err if it fail to connect
-      } else {
-        connection.query(`SELECT * FROM account`, (error, result) => {
+      } else if (bcrypt.compareSync(myPassword, insertData.token)) { //check token hashed from password
+        connection.query(`SELECT * FROM profile WHERE u_id = ?`, insertData.userid, (error, result) => {
+          let obj = {};
           if (error) {
-            console.error('SQL error', error);
-            reject(error);
+            console.error('SQL error', error)
+            reject(error)
+          } else if (Object.keys(result).length === 0) {
+            obj = {
+              message: "failed",
+              text: "尚未建立個人資料",
+            }
+            resolve(obj)
           } else {
-            // console.log('What to include in result', result)
-            resolve(result);
+            obj = {
+              message: "succeed",
+              content: result[0],
+            }
+            resolve(obj)
           }
-          connection.release();
-        });
+        })
+      } else {
+        console.log('check encrypy', insertData, myHash, myPassword)
       }
     })
   });
@@ -113,7 +124,7 @@ const loginCheck = (insertData) => {
 }
 
 module.exports = {
-  getUsersList,
+  getProfile,
   createUser,
   loginCheck,
 };

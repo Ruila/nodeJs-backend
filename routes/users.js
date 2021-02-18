@@ -12,11 +12,13 @@ const userCtrl = require('../controller/user.controller.js');
 // });
 
 router.route('/')
-  .get(userCtrl.userGet)
   .post(userCtrl.userPost);
 
 router.route('/login')
   .post(userCtrl.userLogin);
+
+router.route('/profile')
+.post(userCtrl.userProfile);
 
 module.exports = router;
 
