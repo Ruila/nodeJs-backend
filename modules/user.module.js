@@ -1,5 +1,10 @@
 var crypto = require('crypto');
-var md5 = crypto.createHash('md5');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+var myPassword = 'password';
+var myHash ='';
+
+
 var mysql = require('mysql');
 const {
   connect
@@ -83,16 +88,19 @@ const loginCheck = (insertData) => {
             resolve('信箱尚未註冊！')
           } else {
             console.log('What to include in result', result)
-            // resolve(`post successfully userid: ${result}`);
-            // resolve(result)
-            console.log('result.password', result[0].password, insertData)
             if (result[0].password === insertData.password) {
-              resolve({
+
+              // encryption
+              myPassword = result[0].password;
+              myHash = bcrypt.hashSync(myPassword, saltRounds)
+              const obj = {
                 text: 'succeed',
                 userid: result[0].userid,
                 email: result[0].email,
-                token: md5.update(`${result[0]}`).digest('hex')
-              });
+                // token: crypto.createHash('md5').update(`${result[0]}`).digest('hex')
+                token: myHash
+              }
+              resolve(obj);
             } else {
               resolve('password error');
             }
